@@ -1,0 +1,228 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🌹 Happy Rose Day 🌹</title>  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">  <style>
+    * { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #ff5f8f, #ff9a9e);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    header {
+      padding: 50px 20px;
+      text-align: center;
+      animation: fadeDown 1.5s ease;
+    }
+
+    h1 { font-size: 2.6rem; }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      padding: 10px 20px;
+      border: 2px solid white;
+      border-radius: 25px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      background: white;
+      color: #ff4f7a;
+      transform: scale(1.1);
+    }
+
+    section {
+      padding: 70px 20px;
+      text-align: center;
+      animation: fadeUp 1.5s ease;
+    }
+
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.25);
+      padding: 25px;
+      border-radius: 22px;
+      backdrop-filter: blur(6px);
+      transition: 0.3s;
+    }
+
+    .card:hover { transform: translateY(-12px) scale(1.03); }
+
+    input, textarea {
+      padding: 12px;
+      width: 90%;
+      max-width: 350px;
+      border-radius: 15px;
+      border: none;
+      outline: none;
+      margin: 8px 0;
+    }
+
+    button {
+      padding: 12px 30px;
+      border: none;
+      border-radius: 25px;
+      background: white;
+      color: #ff4f7a;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover { transform: scale(1.15); }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0,0,0,0.25);
+    }
+
+    /* Floating roses */
+    .rose {
+      position: fixed;
+      bottom: -40px;
+      font-size: 24px;
+      animation: floatUp linear infinite;
+      pointer-events: none;
+    }
+
+    /* Confetti hearts */
+    .heart {
+      position: fixed;
+      top: -20px;
+      font-size: 18px;
+      animation: fall linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(-110vh); opacity: 0; }
+    }
+
+    @keyframes fall {
+      to { transform: translateY(110vh); opacity: 0; }
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      section { padding: 50px 15px; }
+    }
+  </style></head>
+<body><audio id="music" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3b6c1b0b7c.mp3" type="audio/mpeg">
+</audio><header>
+  <h1 id="title">🌹 Happy Rose Day 🌹</h1>
+  <p>Celebrate love, friendship & care</p>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#types">Types</a>
+    <a href="#meaning">Meanings</a>
+    <a href="#message">Message</a>
+  </nav>
+  <br>
+  <button onclick="toggleMusic()">🎵 Play Music</button>
+</header><section id="home">
+  <h2>Welcome 🌸</h2>
+  <p>This Rose Day, send love in the most beautiful way.</p>
+</section><section id="types">
+  <h2>🌹 Types of Roses 🌹</h2>
+  <div class="card-container">
+    <div class="card">❤️ Red Rose<br>Love</div>
+    <div class="card">💖 Pink Rose<br>Admiration</div>
+    <div class="card">🤍 White Rose<br>Peace</div>
+    <div class="card">💛 Yellow Rose<br>Friendship</div>
+  </div>
+</section><section id="meaning">
+  <h2>🌹 Rose Meanings 🌹</h2>
+  <p>Every rose color expresses a different emotion.</p>
+</section><section id="message">
+  <h2>💌 Send a Personalized Message 💌</h2>
+  <input id="name" placeholder="Receiver's Name" />
+  <textarea id="msg" placeholder="Your Rose Day Message"></textarea><br>
+  <button onclick="sendMessage()">Send 🌹</button>
+  <p id="output"></p>
+</section><footer>
+  <p>Made with ❤️ for Rose Day</p>
+</footer><script>
+  /* Floating roses */
+  setInterval(() => {
+    const rose = document.createElement('div');
+    rose.className = 'rose';
+    rose.innerText = '🌹';
+    rose.style.left = Math.random() * 100 + 'vw';
+    rose.style.animationDuration = (3 + Math.random() * 3) + 's';
+    document.body.appendChild(rose);
+    setTimeout(() => rose.remove(), 6000);
+  }, 500);
+
+  /* Music */
+  const music = document.getElementById('music');
+  let playing = false;
+  function toggleMusic() {
+    if (!playing) {
+      music.play();
+      playing = true;
+    } else {
+      music.pause();
+      playing = false;
+    }
+  }
+
+  /* Confetti hearts */
+  function confetti() {
+    for (let i = 0; i < 30; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerText = '💖';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (2 + Math.random() * 3) + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+  }
+
+  /* Message */
+  function sendMessage() {
+    const name = document.getElementById('name').value;
+    const msg = document.getElementById('msg').value;
+
+    if (name && msg) {
+      document.getElementById('output').innerText = `🌹 Dear ${name}, your message was sent with love!`;
+      document.getElementById('title').innerText = `🌹 Happy Rose Day ${name} 🌹`;
+      confetti();
+    } else {
+      document.getElementById('output').innerText = 'Please fill all fields 🌸';
+    }
+  }
+</script></body>
+</html>
